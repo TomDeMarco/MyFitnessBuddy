@@ -15,7 +15,7 @@ import java.nio.charset.StandardCharsets;
 // TODO: make class not abstract once it's full implemented so it can be instantiated in the build
 @Service
 public abstract class USDAFoodAPI {
-
+    // pulls api key value from application.properties under the resources folder
     @Value("${api.key}")
     private String apiKey;
     
