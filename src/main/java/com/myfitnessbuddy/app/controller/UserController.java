@@ -19,7 +19,7 @@ public class UserController {
     // POST
     // CREATE: Add a new user
     // mapping provides what url must be to perform this HTTP request
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
         User createdUser = userService.createUser(user);
         return ResponseEntity.ok(createdUser);

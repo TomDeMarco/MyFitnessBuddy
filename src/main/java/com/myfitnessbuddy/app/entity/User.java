@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 // -============- USER ENTITY LAYER -============-
 // defines structure of the users database table
 // you can think of it as representing the user within the tables of the db
@@ -26,11 +28,16 @@ public class User {
 
     // the One-To-Many relationship links this user with all rows in food_item table associated to it
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<FoodItem> historicalFood = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Exercise> historicalExercise = new ArrayList<>();
 
+    // JPA requires a no-arg constrcutor for each entity class
+    // so it can create instances behind the scenes without needing manually
+    // passed parameters like a regular constructor
     public User() {}
 
     // each field in the user object corresponds to a column in the user table
@@ -65,4 +72,6 @@ public class User {
     public void setGender(String gender) { this.gender = gender; }
     public void setHistoricalFood(List<FoodItem> historicalFood) { this.historicalFood = historicalFood; }
     public void setHistoricalExercise(List<Exercise> historicalExercise) { this.historicalExercise = historicalExercise; }
+
+    // consider add toString method for testing purposes
 }

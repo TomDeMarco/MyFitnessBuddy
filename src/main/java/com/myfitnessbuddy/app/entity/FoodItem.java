@@ -3,6 +3,9 @@ package com.myfitnessbuddy.app.entity;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 //import org.json.*;
 import jakarta.persistence.*;
 
@@ -15,7 +18,8 @@ public class FoodItem {
 
     // foreign key to map food items to user via the user column
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)  // foreign key to tie food items to users
+    @JoinColumn(name = "user_id", nullable = false) // foreign key to tie food items to users
+    @JsonBackReference
     private User user;
 
     private String foodName;
@@ -65,4 +69,6 @@ public class FoodItem {
     public void setFatAmount(double fatAmount) { this.fatAmount = fatAmount; }
     public void setSugarAmount(double sugarAmount) { this.sugarAmount = sugarAmount; }
     public void setDate(LocalDate date) { this.date = date; }
+
+    // consider add toString method for testing purposes
 }

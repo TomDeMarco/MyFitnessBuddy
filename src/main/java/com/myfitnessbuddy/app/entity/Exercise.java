@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "exercises")
 public class Exercise {
@@ -14,7 +16,8 @@ public class Exercise {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)  // foreign key to tie food items to users
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
     private User user;
 
     private String exerciseName;
@@ -22,8 +25,10 @@ public class Exercise {
     private int sets;
     private int reps;
     private int weight;
-    private int length;
+    private int length; // what is length? Like a time duration of the exercise?
     private LocalDate date;
+
+    public Exercise() {}
 
     public Exercise(User user, String exerciseName, List<String> muscleGroupsWorked, int sets, int reps, int weight, int length, LocalDate date) {
         this.user = user;
@@ -56,5 +61,7 @@ public class Exercise {
     public void setWeight(int weight) { this.weight = weight; }
     public void setLength(int length) { this.length = length; }
     public void setDate(LocalDate date) { this.date = date; }
+
+    // consider add toString method for testing purposes
 }
 
