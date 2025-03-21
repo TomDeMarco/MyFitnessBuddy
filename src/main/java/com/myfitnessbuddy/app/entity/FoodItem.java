@@ -13,7 +13,7 @@ public class FoodItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // foreigh key to map food items to user via the user column
+    // foreign key to map food items to user via the user column
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)  // foreign key to tie food items to users
     private User user;

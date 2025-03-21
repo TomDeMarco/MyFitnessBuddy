@@ -6,13 +6,18 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
 import org.json.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
+// TODO: make class not abstract once it's full implemented so it can be instantiated in the build
 @Service
-public class USDAFoodAPI {
+public abstract class USDAFoodAPI {
+
+    @Value("${api.key}")
+    private String apiKey;
     
     public static JSONObject searchFood(String foodName, String apiKey) throws Exception {
 
@@ -157,10 +162,17 @@ public class USDAFoodAPI {
             return -1.0;
     }
 
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    // TODO: main method should not be here: refactor
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
             // Get user input for API key
-            String apiKey = "1oy4bfB9ZiqzRv89bjspa5isaCb1YfSeDIVNkjtL";
+            // api keys should not be hardcoded into the source code
+            // SEE: application properties undet the resources folder
+            String apiKey = ""; // getApiKey();
     
             // Get user input for food name
             System.out.print("Enter the food name: ");

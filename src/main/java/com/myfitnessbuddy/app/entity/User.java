@@ -24,6 +24,7 @@ public class User {
     private String fitnessGoals;
     private String gender;
 
+    // One-To-Many relationship links this user with all rows in food_item table associated to it
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FoodItem> historicalFood = new ArrayList<>();
 
