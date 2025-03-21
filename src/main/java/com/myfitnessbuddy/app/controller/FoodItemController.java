@@ -19,24 +19,25 @@ public class FoodItemController {
     @PostMapping
     public ResponseEntity<FoodItem> createFoodItem(@RequestBody FoodItem foodItem) {
         FoodItem createdFoodItem = foodItemService.createFoodItem(foodItem);
-        return (createdFoodItem != null) ? ResponseEntity.ok(createdFoodItem) : ResponseEntity.badRequest().build();
+        return ResponseEntity.status(201).body(createdFoodItem);
     }
 
-    // READ - Get food item by id
+    // READ
+    // get food item by id
     @GetMapping("/{id}")
     public ResponseEntity<FoodItem> getFoodItemById(@PathVariable Long id) {
         FoodItem foodItem = foodItemService.getFoodItemById(id);
         return (foodItem != null) ? ResponseEntity.ok(foodItem) : ResponseEntity.notFound().build();
     }
 
-    // READ - Get all food items
+    // get all food items
     @GetMapping
     public ResponseEntity<List<FoodItem>> getAllFoodItems() {
         List<FoodItem> foodItems = foodItemService.getAllFoodItems();
         return foodItems.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(foodItems);
     }
 
-    // READ - Get food items by userId
+    // get food items by userId
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<FoodItem>> getFoodItemsByUserId(@PathVariable Long userId) {
         List<FoodItem> foodItems = foodItemService.getFoodItemsByUserId(userId);

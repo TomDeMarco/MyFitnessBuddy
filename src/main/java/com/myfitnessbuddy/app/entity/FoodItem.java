@@ -1,13 +1,8 @@
 package com.myfitnessbuddy.app.entity;
 
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
-//import org.json.*;
 import jakarta.persistence.*;
+import java.time.LocalDate;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "food_items")

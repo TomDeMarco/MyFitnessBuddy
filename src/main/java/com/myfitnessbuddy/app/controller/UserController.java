@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users") // Base URL for all user-related endpoints
+@RequestMapping("/users") // base URL for all user-related endpoints
 public class UserController {
 
     // spring identifies user service
@@ -22,7 +22,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
         User createdUser = userService.createUser(user);
-        return ResponseEntity.ok(createdUser);
+        return ResponseEntity.status(201).body(createdUser);
     }
 
     // GET

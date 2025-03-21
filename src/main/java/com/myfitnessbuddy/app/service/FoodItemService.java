@@ -1,9 +1,7 @@
 package com.myfitnessbuddy.app.service;
 
-import com.myfitnessbuddy.app.entity.User;
 import com.myfitnessbuddy.app.entity.FoodItem;
 import com.myfitnessbuddy.app.repository.FoodItemRepository;
-import com.myfitnessbuddy.app.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,8 +44,7 @@ public class FoodItemService {
 
         if (optionalFoodItem.isPresent()) {
             FoodItem foodItem = optionalFoodItem.get();
-    
-            // Update fields — but do not touch the user
+            
             foodItem.setFoodName(foodItemDetails.getFoodName());
             foodItem.setServingSize(foodItemDetails.getServingSize());
             foodItem.setCaloriesPerServing(foodItemDetails.getCaloriesPerServing());
