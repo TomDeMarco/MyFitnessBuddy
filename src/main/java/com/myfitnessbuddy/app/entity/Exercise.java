@@ -13,6 +13,10 @@ public class Exercise {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)  // foreign key to tie food items to users
+    private User user;
+
     private String exerciseName;
     private List<String> muscleGroupsWorked;
     private int sets;
@@ -21,7 +25,8 @@ public class Exercise {
     private int length;
     private LocalDate date;
 
-    public Exercise(String exerciseName, List<String> muscleGroupsWorked, int sets, int reps, int weight, int length, LocalDate date) {
+    public Exercise(User user, String exerciseName, List<String> muscleGroupsWorked, int sets, int reps, int weight, int length, LocalDate date) {
+        this.user = user;
         this.exerciseName = exerciseName;
         this.muscleGroupsWorked = muscleGroupsWorked;
         this.sets = sets;
@@ -33,6 +38,7 @@ public class Exercise {
 
     // GETTERS
     public Long getId() { return id; }
+    public User getUser() { return user; }
     public String getExerciseName() { return exerciseName; }
     public List<String> getMuscleGroupsWorked() { return muscleGroupsWorked; }
     public int getSets() { return sets; }
@@ -42,6 +48,7 @@ public class Exercise {
     public LocalDate getDate() { return date; }
 
     // SETTERS
+    public void setUser(User user) { this.user = user; }
     public void setExerciseName(String exerciseName) { this.exerciseName = exerciseName; }
     public void setMuscleGroupsWorked(List<String> muscleGroupsWorked) { this.muscleGroupsWorked = muscleGroupsWorked; }
     public void setSets(int sets) { this.sets = sets; }
