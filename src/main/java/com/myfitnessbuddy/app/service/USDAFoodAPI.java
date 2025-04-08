@@ -1,6 +1,9 @@
 package com.myfitnessbuddy.app.service;
 
-import io.github.cdimascio.dotenv.Dotenv;
+import io.github.cdimascio.dotenv.Dotenv; // TODO: import api from your .env folder
+// Add this below when you need to load your key
+// Dotenv dotenv = Dotenv.load();
+// String myVar = dotenv.get("MY_ENV_VAR");
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
