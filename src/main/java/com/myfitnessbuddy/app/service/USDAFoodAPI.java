@@ -1,5 +1,6 @@
 package com.myfitnessbuddy.app.service;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
