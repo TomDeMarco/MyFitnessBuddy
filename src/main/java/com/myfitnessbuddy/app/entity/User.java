@@ -22,7 +22,7 @@ public class User {
     private String name;
     private int age;
     private double weight;
-    private double height;
+    private int height; // height in cm
     private String fitnessGoals;
     private String gender;
 
@@ -42,7 +42,7 @@ public class User {
 
     // each field in the user object corresponds to a column in the user table
     // each row in this table will represent a new user
-    public User(String name, int age, double weight, double height, String fitnessGoals, String gender) {
+    public User(String name, int age, double weight, int height, String fitnessGoals, String gender) {
         this.name = name;
         this.age = age;
         this.weight = weight;
@@ -56,7 +56,7 @@ public class User {
     public String getName() { return name; }
     public int getAge() { return age; }
     public double getWeight() { return weight; }
-    public double getHeight() { return height; }
+    public int getHeight() { return height; }
     public String getFitnessGoals() { return fitnessGoals; }
     public String getGender() { return gender; }
     public List<FoodItem> getHistoricalFood() { return historicalFood; }
@@ -67,7 +67,7 @@ public class User {
     public void setName(String name) { this.name = name; }
     public void setAge(int age) { this.age = age; }
     public void setWeight(double weight) { this.weight = weight; }
-    public void setHeight(double height) { this.height = height; }
+    public void setHeight(int height) { this.height = height; }
     public void setFitnessGoals(String fitnessGoals) { this.fitnessGoals = fitnessGoals; }
     public void setGender(String gender) { this.gender = gender; }
     public void setHistoricalFood(List<FoodItem> historicalFood) { this.historicalFood = historicalFood; }
