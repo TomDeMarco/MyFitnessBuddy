@@ -16,12 +16,17 @@ import org.springframework.stereotype.Service;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
+import io.github.cdimascio.dotenv.Dotenv;
+
 // TODO: make class not abstract once it's full implemented so it can be instantiated in the build
 @Service
-public abstract class USDAFoodAPI {
+public class USDAFoodAPI {
     // pulls api key value from application.properties under the resources folder
-    @Value("${api.key}")
-    private String apiKey;
+    //@Value("${api.key}")
+
+    Dotenv dotenv = Dotenv.configure().load();
+    
+    private String apiKey = dotenv.get("USDAFoodKey");
     
     public static JSONObject searchFood(String foodName, String apiKey) throws Exception {
 
@@ -170,6 +175,7 @@ public abstract class USDAFoodAPI {
         return apiKey;
     }
 
+    /* 
     // TODO: main method should not be here: refactor
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
@@ -210,5 +216,6 @@ public abstract class USDAFoodAPI {
             e.printStackTrace();
         }
     }
+    */
 }
 
