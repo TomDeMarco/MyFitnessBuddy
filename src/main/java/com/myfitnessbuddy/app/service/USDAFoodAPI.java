@@ -1,6 +1,6 @@
 package com.myfitnessbuddy.app.service;
 
-import io.github.cdimascio.dotenv.Dotenv; // TODO: import api from your .env folder
+import io.github.cdimascio.dotenv.Dotenv;
 // Add this below when you need to load your key
 // Dotenv dotenv = Dotenv.load();
 // String myVar = dotenv.get("MY_ENV_VAR");
@@ -8,7 +8,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Scanner;
 import org.json.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -16,19 +15,18 @@ import org.springframework.stereotype.Service;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
-import io.github.cdimascio.dotenv.Dotenv;
-
-// TODO: make class not abstract once it's full implemented so it can be instantiated in the build
 @Service
 public class USDAFoodAPI {
     // pulls api key value from application.properties under the resources folder
     //@Value("${api.key}")
+    private final String apiKey;
 
-    Dotenv dotenv = Dotenv.configure().load();
-    
-    private String apiKey = dotenv.get("USDAFoodKey");
-    
-    public static JSONObject searchFood(String foodName, String apiKey) throws Exception {
+    public USDAFoodAPI() {
+        Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
+        this.apiKey = dotenv.get("USDA_API_KEY");
+    }
+
+    public JSONObject searchFood(String foodName, String apiKey) throws Exception {
 
         String encodedFoodName = URLEncoder.encode(foodName, StandardCharsets.UTF_8.toString());
         
@@ -69,7 +67,7 @@ public class USDAFoodAPI {
         return null; //No results found
     }
 
-    public static JSONObject getFoodDetails(int fdcId, String apiKey) throws Exception {
+    public JSONObject getFoodDetails(int fdcId, String apiKey) throws Exception {
         String urlString = "https://api.nal.usda.gov/fdc/v1/food/" + fdcId + "?api_key=" + apiKey;
         URL url = new URL(urlString);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -95,7 +93,7 @@ public class USDAFoodAPI {
      * @Param nutirentId an int corresponding to nutrient value being targeted
      * @return a double of desired nutrient value. Defaults to -1
      */
-    public static Double getNutrientValue(JSONObject foodData, int nutrientId) {
+    public Double getNutrientValue(JSONObject foodData, int nutrientId) {
         JSONArray foodNutrients = foodData.optJSONArray("foodNutrients");
     
         if (foodNutrients != null) {
@@ -116,7 +114,7 @@ public class USDAFoodAPI {
      * @param apiKey is the USDAFood API key
      * @return Double value for protein on success. On failure returns -1.0
      */
-    public static Double getProtein(String foodName, String apiKey){
+    public Double getProtein(String foodName, String apiKey){
         JSONObject foodItem;
         try {
             foodItem = searchFood(foodName, apiKey);
@@ -127,7 +125,7 @@ public class USDAFoodAPI {
             return -1.0;
     }
 
-    public static Double getCarbs(String foodName, String apiKey){
+    public Double getCarbs(String foodName, String apiKey){
         JSONObject foodItem;
         try {
             foodItem = searchFood(foodName, apiKey);
@@ -138,7 +136,7 @@ public class USDAFoodAPI {
             return -1.0;
     }
 
-    public static Double getFats(String foodName, String apiKey){
+    public Double getFats(String foodName, String apiKey){
         JSONObject foodItem;
         try {
             foodItem = searchFood(foodName, apiKey);
@@ -149,7 +147,7 @@ public class USDAFoodAPI {
             return -1.0;
     }
 
-    public static Double getSugar(String foodName, String apiKey){
+    public Double getSugar(String foodName, String apiKey){
         JSONObject foodItem;
         try {
             foodItem = searchFood(foodName, apiKey);
@@ -160,7 +158,7 @@ public class USDAFoodAPI {
             return -1.0;
     }
 
-    public static Double getCalories(String foodName, String apiKey){
+    public Double getCalories(String foodName, String apiKey){
         JSONObject foodItem;
         try {
             foodItem = searchFood(foodName, apiKey);
@@ -176,7 +174,6 @@ public class USDAFoodAPI {
     }
 
     /* 
-    // TODO: main method should not be here: refactor
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
             // Get user input for API key

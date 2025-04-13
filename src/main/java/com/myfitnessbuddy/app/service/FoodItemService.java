@@ -21,6 +21,19 @@ public class FoodItemService {
         return foodItemRepository.save(foodItem);
     }
 
+    //CREATE USING USDA
+    public FoodItem createFoodItemFromUSDA(String foodName){
+        try{
+            FoodItem foodItem = loadFoodItemFromUSDA(foodName);
+            if(foodItem != null){
+                return foodItemRepository.save(foodItem);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+            
+        }
+        return new FoodItem(null, foodName, 0, -1, -1, -1, -1, -1, null);
+    }
     // READ
     // gets fooditem by id
     public FoodItem getFoodItemById(Long id) {
@@ -68,34 +81,41 @@ public class FoodItemService {
         return false;
     }
 
-    // TODO: implement service methods
     // Factory method to create a FoodItem from USDA API
-    public static FoodItem loadFoodItemFromUSDA(String foodName) {
-        String apiKey = getApiKey();
-         try {
-             JSONObject foodData = USDAFoodAPI.searchFood(foodName, apiKey);
-             if (foodData == null) {
-                 return null;
-             }
+    public FoodItem loadFoodItemFromUSDA(String name) {
+        try {
+            // Fetch the nutritional data from USDA API
+            USDAFoodAPI api = new USDAFoodAPI();
+            String apiKey = api.getApiKey();
+            Double proteinAmount = api.getProtein(name, apiKey);
+            Double carbAmount = api.getCarbs(name, apiKey);
+            Double fatAmount = api.getFats(name, apiKey);
+            Double sugarAmount = api.getSugar(name, apiKey);
+            int caloriesPerServing = (int) Math.round(api.getCalories(name, apiKey));
 
-             double servingSize = 100.0; // Assume 100g serving if not provided
-             int calories = USDAFoodAPI.getCalories(foodName, apiKey).intValue();
-             double protein = USDAFoodAPI.getProtein(foodName, apiKey);
-             double carbs = USDAFoodAPI.getCarbs(foodName, apiKey);
-             double fats = USDAFoodAPI.getFats(foodName, apiKey);
-             double sugar = USDAFoodAPI.getSugar(foodName, apiKey);
+            // Create and return a new FoodItem with the fetched data
+            FoodItem foodItem = new FoodItem();
+            foodItem.setFoodName(name);
+            foodItem.setProteinAmount(proteinAmount);
+            foodItem.setCarbAmount(carbAmount);
+            foodItem.setFatAmount(fatAmount);
+            foodItem.setSugarAmount(sugarAmount);
+            foodItem.setCaloriesPerServing(caloriesPerServing);
+            foodItem.setDate(foodItem.getDate());
 
-             return new FoodItem(foodName, servingSize, calories, protein, carbs, fats, sugar, "2025-03-11");
-         } catch (Exception e) {
-             e.printStackTrace();
-             return null;
-         }
-     }
-
+            return foodItem;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    
+    
     // public int calculateTotalCalories(double amount, String date) {
     //     return (int) ((amount / servingSize) * caloriesPerServing);
     // }
-
+    
     // public Map<String, Double> calculateNutrientBreakdown(double amount, String date) {
     //     Map<String, Double> breakdown = new HashMap<>();
     //     breakdown.put("Protein", (amount / servingSize) * proteinAmount);
