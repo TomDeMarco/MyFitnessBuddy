@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Tracker</title>
+    <link rel="stylesheet" href="static/css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Fitness Tracker</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" onclick="showSection('home')">Home</a></li>
+                <li><a href="#" onclick="showSection('log-food')">Log Food</a></li>
+                <li><a href="#" onclick="showSection('log-exercise')">Log Exercise</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section id="home">
+            <h2>Welcome to Fitness Tracker</h2>
+            <p>Track your calories and exercises efficiently!</p>
+        </section>
+        
+        <section id="log-food" class="hidden">
+            <h2>Log Food</h2>
+            <input type="text" id="food-search" placeholder="Search for food...">
+            <button onclick="searchFood()">Search</button>
+            <div id="food-results" class="food-results"></div>
+        </section>
+        
+        <section id="log-exercise" class="hidden">
+            <h2>Log Exercise</h2>
+            <p>Exercise logging functionality coming soon!</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Fitness Tracker. All rights reserved.</p>
+    </footer>
+
+    <!-- <script>
+        function showSection(sectionId) {
+            document.querySelectorAll('section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            document.getElementById(sectionId).classList.remove('hidden');
+        }
+
+        // Fetch food details from USDA API
+        function searchFood() {
+            const foodName = document.getElementById('food-search').value.trim();
+            const apiKey = "1oy4bfB9ZiqzRv89bjspa5isaCb1YfSeDIVNkjtL";  // Replace with your actual USDA API key
+
+            if (!foodName) return;
+
+            // Clear previous results
+            const resultsDiv = document.getElementById('food-results');
+            resultsDiv.innerHTML = '';
+
+            // Fetch data from USDA API
+            fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?query=${foodName}&api_key=${apiKey}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.foods && data.foods.length > 0) {
+                        displayFoodResults(data.foods);
+                    } else {
+                        resultsDiv.innerHTML = '<p>No results found. Try searching for a different food item.</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data from API:', error);
+                    resultsDiv.innerHTML = '<p>Error fetching data. Please try again later.</p>';
+                });
+        }
+
+        // Display fetched food results
+        function displayFoodResults(foods) {
+            const resultsDiv = document.getElementById('food-results');
+            foods.forEach(food => {
+                const foodDiv = document.createElement('div');
+                foodDiv.classList.add('food-item');
+                
+                // Extract basic food info
+                const foodName = food.description || 'No name available';
+                const foodId = food.fdcId || 'N/A';
+                const calories = food.foodNutrients ? getNutrientValue(food.foodNutrients, 1008) : 'N/A';
+                const protein = food.foodNutrients ? getNutrientValue(food.foodNutrients, 1003) : 'N/A';
+                const carbs = food.foodNutrients ? getNutrientValue(food.foodNutrients, 1005) : 'N/A';
+                const fats = food.foodNutrients ? getNutrientValue(food.foodNutrients, 1004) : 'N/A';
+                const sugar = food.foodNutrients ? getNutrientValue(food.foodNutrients, 2000) : 'N/A';
+                
+                // Populate the result item
+                foodDiv.innerHTML = `
+                    <h3>${foodName}</h3>
+                    <p><strong>Calories:</strong> ${calories} kcal</p>
+                    <p><strong>Protein:</strong> ${protein} g</p>
+                    <p><strong>Carbs:</strong> ${carbs} g</p>
+                    <p><strong>Fats:</strong> ${fats} g</p>
+                    <p><strong>Sugar:</strong> ${sugar} g</p>
+                    <p><em>Food ID: ${foodId}</em></p>
+                `;
+                
+                resultsDiv.appendChild(foodDiv);
+            });
+        }
+
+        // Get nutrient value by nutrientId (e.g., Protein, Carbs, etc.)
+        function getNutrientValue(nutrients, nutrientId) {
+            const nutrient = nutrients.find(n => n.nutrientId === nutrientId);
+            return nutrient ? nutrient.value : 'N/A';
+        }
+    </script> -->
+</body>
+</html>

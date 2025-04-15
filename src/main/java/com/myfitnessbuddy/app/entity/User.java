@@ -21,7 +21,7 @@ public class User {
 
     private String name;
     private int age;
-    private double weight; // kilograms
+    private double weight;
     private int height; // height in cm
     private String fitnessGoals;
     private String gender;
