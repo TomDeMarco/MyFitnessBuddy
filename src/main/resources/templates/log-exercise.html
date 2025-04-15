@@ -1,16 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Log Exercise</title>
+    <meta charset="UTF-8" />
+    <title>Log Exercise - Fitness Tracker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 24px;
+        }
+
+        .exercise-form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .exercise-form label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .exercise-form input,
+        .exercise-form select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-top: 8px;
+        }
+
+        .exercise-form button {
+            margin-top: 20px;
+            padding: 12px 20px;
+            background-color: #333333;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        .exercise-form button:hover {
+            background-color: #f39c12;
+        }
+
+        .recent-exercises {
+            background-color: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .recent-exercises h2 {
+            margin-bottom: 20px;
+            font-size: 22px;
+            color: #0072ff;
+        }
+
+        .exercise-entry {
+            border-bottom: 1px solid #eee;
+            padding: 12px 0;
+        }
+
+        .exercise-entry:last-child {
+            border-bottom: none;
+        }
+
+        .exercise-entry h3 {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .exercise-entry p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        @media (max-width: 600px) {
+            .exercise-form, .recent-exercises {
+                padding: 15px;
+            }
+
+            header h1 {
+                font-size: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
+
     <header>
-        <h1>Log Exercise (User ID: <span th:text="${userId}"></span>)</h1>
-        <a href="/">Home</a> | <a href="/logout">Logout</a>
+        <h1>Log Exercise</h1>
     </header>
-    <main>
-        <p>Exercise logging form goes here...</p>
-    </main>
+
+    <div class="exercise-form">
+        <form method="post" action="/log-exercise">
+            <label for="exercise-type">Exercise Type:</label>
+            <input type="text" id="exercise-type" name="exerciseType" placeholder="e.g., Running" required />
+
+            <label for="duration">Duration (minutes):</label>
+            <input type="number" id="duration" name="duration" placeholder="e.g., 30" required />
+
+            <label for="intensity">Intensity:</label>
+            <select id="intensity" name="intensity" required>
+                <option value="">Select intensity</option>
+                <option value="Low">Low</option>
+                <option value="Moderate">Moderate</option>
+                <option value="High">High</option>
+            </select>
+
+            <label for="calories">Calories Burned:</label>
+            <input type="number" id="calories" name="calories" placeholder="e.g., 300" required />
+
+            <button type="submit">Log Exercise</button>
+        </form>
+    </div>
+
+    <div class="recent-exercises">
+        <h2>Recent Exercises</h2>
+        <div class="exercise-entry">
+            <h3>Running</h3>
+            <p>Duration: 30 min | Intensity: High | Calories Burned: 350 kcal</p>
+        </div>
+        <div class="exercise-entry">
+            <h3>Yoga</h3>
+            <p>Duration: 45 min | Intensity: Low | Calories Burned: 180 kcal</p>
+        </div>
+        <div class="exercise-entry">
+            <h3>Cycling</h3>
+            <p>Duration: 60 min | Intensity: Moderate | Calories Burned: 450 kcal</p>
+        </div>
+    </div>
+
 </body>
 </html>
