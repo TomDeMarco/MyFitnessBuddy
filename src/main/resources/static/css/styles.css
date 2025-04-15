@@ -1,129 +1,171 @@
-/* General Reset */
+/* Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Body and Layout */
+/* Layout and Typography */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f2f7f5;
+    color: #222;
+    line-height: 1.6;
 }
 
+/* Header */
 header {
-    background-color: #333;
+    background: linear-gradient(90deg, #38a169, #2f855a); /* Green gradient */
     color: white;
-    padding: 20px;
+    padding: 20px 0;
     text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-header nav ul {
-    list-style: none;
-    padding: 0;
+header .logo h1 {
+    font-size: 2rem;
+    font-weight: bold;
 }
 
-header nav ul li {
-    display: inline;
-    margin: 0 15px;
+nav ul {
+    margin-top: 10px;
 }
 
-header nav ul li a {
+nav ul li {
+    display: inline-block;
+    margin: 0 20px;
+}
+
+nav ul li a {
     color: white;
+    font-size: 1rem;
     text-decoration: none;
-    font-size: 18px;
-    transition: color 0.3s ease;
+    transition: opacity 0.3s ease;
 }
 
-header nav ul li a:hover {
-    color: #f39c12;
+nav ul li a:hover {
+    opacity: 0.85;
 }
 
-/* Main Section */
+/* Main */
 main {
-    padding: 20px;
-    max-width: 1200px;
-    margin: 20px auto;
+    padding: 40px 20px 100px;
+    max-width: 960px;
+    margin: auto;
 }
 
 section {
     display: none;
+    animation: fadeIn 0.3s ease-in-out;
 }
 
 section#home {
+    display: block;
     text-align: center;
+    padding: 40px 20px;
 }
 
 section h2 {
-    color: #333;
-    font-size: 24px;
-    margin-bottom: 10px;
+    font-size: 1.75rem;
+    margin-bottom: 15px;
+    color: #2f855a;
 }
 
 section p {
-    font-size: 18px;
-    color: #555;
+    font-size: 1.1rem;
+    color: #444;
 }
 
-/* Food Search */
+/* Food Logging UI */
 #log-food input {
-    padding: 10px;
-    font-size: 16px;
-    width: 80%;
-    margin-bottom: 15px;
-    border: 2px solid #ddd;
-    border-radius: 5px;
+    padding: 12px;
+    font-size: 1rem;
+    width: 70%;
+    max-width: 500px;
+    margin: 10px 0;
+    border: 2px solid #ccc;
+    border-radius: 10px;
 }
 
 #log-food button {
-    padding: 10px 20px;
-    background-color: #333;
+    padding: 12px 24px;
+    background-color: #38a169;
     color: white;
     border: none;
+    border-radius: 10px;
+    font-size: 1rem;
     cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
+    transition: background 0.3s ease;
 }
 
 #log-food button:hover {
-    background-color: #f39c12;
+    background-color: #2f855a;
 }
 
 /* Food Results */
+.food-results {
+    margin-top: 20px;
+}
+
 .food-item {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    padding: 15px;
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
     margin-bottom: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
 }
 
 .food-item h3 {
-    font-size: 22px;
+    font-size: 1.3rem;
     margin-bottom: 10px;
-    color: #333;
+    color: #2f855a;
 }
 
 .food-item p {
-    font-size: 16px;
+    font-size: 1rem;
     color: #555;
+    margin: 4px 0;
 }
 
-/* Hidden Class for Sections */
+/* Hidden Utility */
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 /* Footer */
 footer {
-    background-color: #333;
+    background-color: #2f855a;
     color: white;
-    padding: 10px;
+    padding: 15px;
     text-align: center;
     position: fixed;
     width: 100%;
     bottom: 0;
+    font-size: 0.9rem;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+    nav ul li {
+        display: block;
+        margin: 10px 0;
+    }
+
+    #log-food input,
+    #log-food button {
+        width: 100%;
+    }
 }
