@@ -3,7 +3,10 @@ package com.myfitnessbuddy.app.service;
 import com.myfitnessbuddy.app.entity.FoodItem;
 import com.myfitnessbuddy.app.repository.FoodItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,6 +37,7 @@ public class FoodItemService {
         }
         return new FoodItem(null, foodName, 0, -1, -1, -1, -1, -1, null);
     }
+
     // READ
     // gets fooditem by id
     public FoodItem getFoodItemById(Long id) {

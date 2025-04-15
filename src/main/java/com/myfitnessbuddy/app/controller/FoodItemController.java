@@ -16,20 +16,26 @@ public class FoodItemController {
     private FoodItemService foodItemService;
 
         // CREATE (Combined - creates from request body or fetches from USDA API)
-        @PostMapping
-        public ResponseEntity<FoodItem> createFoodItem(@RequestBody FoodItem foodItem) {
-            FoodItem createdFoodItem;
-            if (foodItem.getFoodName() != null && !foodItem.getFoodName().isEmpty()) {
-                createdFoodItem = foodItemService.loadFoodItemFromUSDA(foodItem.getFoodName());
-                if (createdFoodItem == null) {
-                    createdFoodItem = foodItemService.createFoodItem(foodItem);
-                }
-            } else {
-                // If no name, return bad request response
-                return ResponseEntity.badRequest().body(null);
-            }
-            return ResponseEntity.status(201).body(createdFoodItem);
-        }
+        // @PostMapping
+        // public ResponseEntity<FoodItem> createFoodItem(@RequestBody FoodItem foodItem) {
+        //     FoodItem createdFoodItem;
+        //     if (foodItem.getFoodName() != null && !foodItem.getFoodName().isEmpty()) {
+        //         createdFoodItem = foodItemService.loadFoodItemFromUSDA(foodItem.getFoodName());
+        //         if (createdFoodItem == null) {
+        //             createdFoodItem = foodItemService.createFoodItem(foodItem);
+        //         }
+        //     } else {
+        //         // If no name, return bad request response
+        //         return ResponseEntity.badRequest().body(null);
+        //     }
+        //     return ResponseEntity.status(201).body(createdFoodItem);
+        // }
+
+    @PostMapping
+    public ResponseEntity<FoodItem> createFoodItem(@RequestBody FoodItem foodItem) {
+        FoodItem createdFoodItem = foodItemService.createFoodItem(foodItem);
+        return (createdFoodItem != null) ? ResponseEntity.ok(createdFoodItem) : ResponseEntity.badRequest().build();
+    }
 
     // READ
     // get food item by id
