@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/fooditems")
@@ -15,21 +16,12 @@ public class FoodItemController {
     @Autowired
     private FoodItemService foodItemService;
 
-        // CREATE (Combined - creates from request body or fetches from USDA API)
-        // @PostMapping
-        // public ResponseEntity<FoodItem> createFoodItem(@RequestBody FoodItem foodItem) {
-        //     FoodItem createdFoodItem;
-        //     if (foodItem.getFoodName() != null && !foodItem.getFoodName().isEmpty()) {
-        //         createdFoodItem = foodItemService.loadFoodItemFromUSDA(foodItem.getFoodName());
-        //         if (createdFoodItem == null) {
-        //             createdFoodItem = foodItemService.createFoodItem(foodItem);
-        //         }
-        //     } else {
-        //         // If no name, return bad request response
-        //         return ResponseEntity.badRequest().body(null);
-        //     }
-        //     return ResponseEntity.status(201).body(createdFoodItem);
-        // }
+    @PostMapping("/usda")
+    public ResponseEntity<FoodItem> createFoodItemFromUSDA(@RequestParam Long userId, @RequestParam String foodName, @RequestParam double servingSize, @RequestParam LocalDate date) {
+        FoodItem createdFoodItem = foodItemService.createFoodItemFromUSDA(foodName, userId, servingSize, date);
+        return (createdFoodItem != null) ? ResponseEntity.ok(createdFoodItem) : ResponseEntity.badRequest().build();
+    }
+
 
     @PostMapping
     public ResponseEntity<FoodItem> createFoodItem(@RequestBody FoodItem foodItem) {
