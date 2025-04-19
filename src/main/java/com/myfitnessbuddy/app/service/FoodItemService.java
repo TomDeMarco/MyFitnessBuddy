@@ -69,7 +69,7 @@ public class FoodItemService {
             
             foodItem.setFoodName(foodItemDetails.getFoodName());
             foodItem.setServingSize(foodItemDetails.getServingSize());
-            foodItem.setCaloriesPerServing(foodItemDetails.getCaloriesPerServing());
+            foodItem.setCalories(foodItemDetails.getCalories());
             foodItem.setProteinAmount(foodItemDetails.getProteinAmount());
             foodItem.setCarbAmount(foodItemDetails.getCarbAmount());
             foodItem.setFatAmount(foodItemDetails.getFatAmount());
@@ -101,7 +101,7 @@ public class FoodItemService {
             Double carbAmount = Math.round(api.getCarbs(name, apiKey) * servingSize * 100.0) / 100.0;
             Double fatAmount = Math.round(api.getFats(name, apiKey) * servingSize * 100.0) / 100.0;
             Double sugarAmount = Math.round(api.getSugar(name, apiKey) * servingSize * 100.0) / 100.0;
-            int caloriesPerServing = (int) Math.round(api.getCalories(name, apiKey) * servingSize);
+            int calories = (int) Math.round(api.getCalories(name, apiKey) * servingSize);
 
             // Create and return a new FoodItem with the fetched data
             FoodItem foodItem = new FoodItem();
@@ -111,7 +111,7 @@ public class FoodItemService {
             foodItem.setCarbAmount(carbAmount);
             foodItem.setFatAmount(fatAmount);
             foodItem.setSugarAmount(sugarAmount);
-            foodItem.setCaloriesPerServing(caloriesPerServing);
+            foodItem.setCalories(calories);
             foodItem.setDate(date);
 
             return foodItem;

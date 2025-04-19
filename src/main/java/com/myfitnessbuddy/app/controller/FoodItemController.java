@@ -1,5 +1,6 @@
 package com.myfitnessbuddy.app.controller;
 
+import com.myfitnessbuddy.app.dto.FoodItemDTO;
 import com.myfitnessbuddy.app.entity.FoodItem;
 import com.myfitnessbuddy.app.service.FoodItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +17,17 @@ public class FoodItemController {
     @Autowired
     private FoodItemService foodItemService;
 
-    @PostMapping("/usda")
-    public ResponseEntity<FoodItem> createFoodItemFromUSDA(@RequestParam Long userId, @RequestParam String foodName, @RequestParam double servingSize, @RequestParam LocalDate date) {
-        FoodItem createdFoodItem = foodItemService.createFoodItemFromUSDA(foodName, userId, servingSize, date);
+   @PostMapping("/usda")
+    public ResponseEntity<FoodItem> createFoodItemFromUSDA(@RequestBody FoodItemDTO dto) {
+        FoodItem createdFoodItem = foodItemService.createFoodItemFromUSDA(
+            dto.foodName,
+            dto.userId,
+            dto.servingSize,
+            dto.date
+        );
+
         return (createdFoodItem != null) ? ResponseEntity.ok(createdFoodItem) : ResponseEntity.badRequest().build();
     }
-
 
     @PostMapping
     public ResponseEntity<FoodItem> createFoodItem(@RequestBody FoodItem foodItem) {
