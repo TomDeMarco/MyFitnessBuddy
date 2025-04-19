@@ -104,7 +104,8 @@ public class ExerciseService {
         return false;
     }
 
-    private double calculateCaloriesBurned(int metIndex, int reps, int sets, double weight, double userWeight, double durationMinutes) {
+    private double calculateCaloriesBurned(int metIndex, int reps, int sets, double weight, double userWeight,
+            double durationMinutes) {
         double totalLift = 0;
         double metValue = MET_VALUES[metIndex];
 
@@ -112,6 +113,6 @@ public class ExerciseService {
             totalLift = weight * reps * sets;
         }
 
-        return Math.round((metValue * userWeight * durationMinutes) + (totalLift * 0.0015));
+        return Math.round((metValue * userWeight * (durationMinutes / 60.0)) + (totalLift * 0.0015));
     }
 }
